@@ -13,6 +13,65 @@ defmodule Minimal do
     2 * :math.pi * radius * height + 2 * :math.pi * :math.pow(radius, 2)
   end
 
+  def reverse(list) do
+    Enum.reverse(list)
+  end
+
+  def uniqueSum(list) do
+    Enum.frequencies(list) |> Map.keys() |> Enum.sum()
+  end
+
+  def extractRandomN(list, n) do
+    Enum.take_random(list, n)
+  end
+
+  def firstFibonacciElements(x) do
+    Stream.unfold({1, 1}, fn {a, b} -> {a, {b, a + b}} end) |> Enum.take(x)
+  end
+
+  def smallestNumber(a, b, c) do
+    sorted_list = Enum.sort([a, b, c])
+    cond do
+      Enum.count([a, b, c], fn x -> x == 0 end) == 0 ->
+        sorted_list
+      Enum.count([a, b, c], fn x -> x == 0 end) == 1 ->
+        [Enum.at((sorted_list), 1), 0, Enum.at((sorted_list), 2)]
+      Enum.count([a, b, c], fn x -> x == 0 end) == 2 ->
+        [Enum.at((sorted_list), 2), 0, 0]
+    end
+  end
+
+  def rotateLeft(list, n) do
+    left = Enum.split(list, n) |> Tuple.to_list() |> List.first()
+    right = Enum.split(list, n) |> Tuple.to_list() |> List.last()
+    right ++ left
+  end
+
+  def removeConsecutiveDuplicates(list) do
+    Enum.dedup(list)
+  end
+
+  def lineWords(list) do
+    final_list = []
+    first_line = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"]
+    second_line = ["a", "s", "d", "f", "g", "h", "j", "k", "l"]
+    third_line = ["z", "x", "c", "v", "b", "n", "m"]
+
+    new_list = for word <- list do
+      cond do
+        Enum.all?(String.graphemes(String.downcase(word)), fn x -> x in first_line end) ->
+          final_list ++ word
+        Enum.all?(String.graphemes(String.downcase(word)), fn x -> x in second_line end) ->
+          final_list ++ word
+        Enum.all?(String.graphemes(String.downcase(word)), fn x -> x in third_line end) ->
+          final_list ++ word
+        true -> nil
+      end
+    end
+    new_list
+    |> Enum.reject(fn x -> is_nil(x) end)
+  end
+
   def translator(dictionary, original_string) do
     dict = Enum.map(Map.keys(dictionary), &to_string/1)
     String.split(original_string, " ")
