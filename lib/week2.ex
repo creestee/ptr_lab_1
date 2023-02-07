@@ -307,9 +307,14 @@ defmodule PtrLab1.Week2 do
     |> String.replace("DCD", "CM")
   end
 
-
-  def factorize() do
-
+  def factorize(number) do
+    cond do
+      isPrime(number) ->
+        [number]
+      true ->
+        Enum.filter((2..number), fn x -> rem(number, x) == 0 end)
+        |> Enum.reject(fn x -> !isPrime(x) end)
+    end
   end
 
 end
