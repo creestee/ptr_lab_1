@@ -283,9 +283,30 @@ defmodule PtrLab1.Week2 do
     end
   end
 
-  def toRoman() do
 
+  @doc """
+  Write a function to convert arabic numbers to roman numerals.
+
+  ## Examples
+    iex> PtrLab1.Week2.toRoman(13)
+    "XIII"
+  """
+  def toRoman(num) do
+    String.duplicate("I", num)
+    |> String.replace("IIIII", "V")
+    |> String.replace("IIII", "IV")
+    |> String.replace("VV", "X")
+    |> String.replace("VIV", "IX")
+    |> String.replace("XXXXX", "L")
+    |> String.replace("XXXX", "XL")
+    |> String.replace("LL", "C")
+    |> String.replace("LXL", "XC")
+    |> String.replace("CCCCC", "D")
+    |> String.replace("CCCC", "CD")
+    |> String.replace("DD", "M")
+    |> String.replace("DCD", "CM")
   end
+
 
   def factorize() do
 
