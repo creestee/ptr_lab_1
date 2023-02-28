@@ -9,7 +9,7 @@ defmodule Main.Sensor.Supervisor do
 
   def init(_) do
     IO.inspect("[INFO] Started Main_Supervisor | #{inspect Process.whereis(:main_supervisor)}")
-    Process.flag(:trap_exit, true) # https://stackoverflow.com/questions/6720472/erlang-and-process-flagtrap-exit-true
+    Process.flag(:trap_exit, true) # process will convert the received exit signal into an exit message and it will not crash
 
     [
       Wheels.Sensor.Supervisor.start_link(self()),
