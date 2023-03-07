@@ -24,3 +24,7 @@ ptr_lab_1-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+*.jpg
+
+config.exs
