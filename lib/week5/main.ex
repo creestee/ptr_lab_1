@@ -68,14 +68,14 @@ defmodule Main.RestRouter do
     |> elem(0)
   end
 
-  get "/" do
+  get "/movies" do
     movies = :ets.tab2list(:database)
     |> Enum.sort() |> Enum.map(fn {id, data} -> %{"id" => id, "title" => data[:title], "release_year" => data[:release_year], "director" => data[:director]} end)
 
     send(conn, 200, movies)
   end
 
-  get "/:id" do
+  get "/movies/:id" do
     id = String.to_integer id
     movie = :ets.tab2list(:database)
     |> Enum.sort() |> Enum.map(fn {id, data} -> %{"id" => id, "title" => data[:title], "release_year" => data[:release_year], "director" => data[:director]} end)
@@ -85,7 +85,7 @@ defmodule Main.RestRouter do
     send(conn, 200, movie)
   end
 
-  post "/" do
+  post "/movies" do
     {:ok, body, conn} = Plug.Conn.read_body(conn)
 
     {:ok,
@@ -100,7 +100,7 @@ defmodule Main.RestRouter do
     send(conn, 200, %{"id" => last_id() + 1, "title" => title, "release_year" => release_year, "director" => director})
   end
 
-  put "/:id" do
+  put "/movies/:id" do
     id = String.to_integer id
     {:ok, body, conn} = Plug.Conn.read_body(conn)
 
@@ -116,7 +116,7 @@ defmodule Main.RestRouter do
     send(conn, 200, %{"id" => id, "title" => title, "release_year" => release_year, "director" => director})
   end
 
-  delete "/:id" do
+  delete "/movies/:id" do
     id = String.to_integer id
 
     :ets.delete(:database, id)
