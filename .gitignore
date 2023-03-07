@@ -28,3 +28,5 @@ ptr_lab_1-*.tar
 *.jpg
 
 config.exs
+
+*.pdf
